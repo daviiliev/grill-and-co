@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grill & Co. – Best Burgers in Town</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <style>
+        /* ---------- RESET ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fdf6f0;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ---------- NAV ---------- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.3s;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ----- LOGO ----- */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: #e74c3c;
+        }
+
+        .logo-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: #e74c3c;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            color: #f39c12;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1a1a2e;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #e74c3c;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: #e74c3c;
+            color: #fff !important;
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.2);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .nav-cta:hover {
+            background: #c0392b !important;
+            transform: scale(1.04);
+            color: #fff !important;
+            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            color: #1a1a2e;
+            cursor: pointer;
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(145deg, #fdf6f0, #f8e8d8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4rem;
+            line-height: 1.08;
+            color: #1a1a2e;
+        }
+
+        .hero-content h1 .highlight {
+            color: #e74c3c;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #4a4a6a;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #e74c3c;
+            color: #fff;
+            padding: 16px 44px;
+            border-radius: 60px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 28px rgba(231, 76, 60, 0.25);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(231, 76, 60, 0.35);
+        }
+
+        .btn-outline {
+            border: 2px solid #ddd;
+            color: #1a1a2e;
+            padding: 16px 44px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-outline:hover {
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.04);
+            transform: translateY(-3px);
+        }
+
+        .hero-image .food-placeholder {
+            width: 100%;
+            max-width: 480px;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: #fff;
+            box-shadow: 0 30px 60px rgba(231, 76, 60, 0.2);
+        }
+
+        .hero-image .food-placeholder span {
+            font-size: 1.2rem;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .hero-stats .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .hero-stats .label {
+            font-size: 0.85rem;
+            color: #4a4a6a;
+        }
+
+        /* ---------- MENU ---------- */
+        .menu {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(231, 76, 60, 0.08);
+            color: #e74c3c;
+            padding: 4px 16px;
+            border-radius: 60px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        .section-sub {
+            color: #4a4a6a;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-top: 8px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin-top: 48px;
+        }
+
+        .menu-card {
+            background: #fdf6f0;
+            padding: 32px 24px;
+            border-radius: 28px;
+            text-align: center;
+            transition: all 0.4s;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            cursor: default;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+            border-color: rgba(231, 76, 60, 0.08);
+        }
+
+        .menu-card .icon {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+        }
+
+        .menu-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .menu-card p {
+            color: #4a4a6a;
+            font-size: 0.9rem;
+        }
+
+        .menu-card .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-top: 12px;
+        }
+
+        /* ---------- TESTIMONIALS ---------- */
+        .testimonials {
+            padding: 80px 0;
+            background: #fdf6f0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 48px;
+        }
+
+        .testimonial-card {
+            background: #fff;
+            padding: 32px 28px;
+            border-radius: 28px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.02);
+            transition: transform 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .testimonial-card .stars {
+            color: #f39c12;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: #1a1a2e;
+            font-size: 1rem;
+        }
+
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .testimonial-card .author .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #e74c3c;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-card .author .name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-card .author .role {
+            font-size: 0.8rem;
+            color: #4a4a6a;
+        }
+
+        /* ---------- CTA ---------- */
+        .cta {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-box {
+            background: linear-gradient(145deg, #e74c3c, #c0392b);
+            border-radius: 40px;
+            padding: 60px 40px;
+            color: #fff;
+        }
+
+        .cta-box h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 500px;
+            margin: 12px auto 32px;
+        }
+
+        .cta-box .btn-primary {
+            background: #fff;
+            color: #e74c3c;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta-box .btn-primary:hover {
+            background: #fdf6f0;
+            transform: translateY(-3px);
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            background: #1a1a2e;
+            color: #b8b8d0;
+            padding: 40px 0 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 2fr;
+            gap: 40px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .footer-brand .logo-text {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .footer-links h4 {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #b8b8d0;
+            text-decoration: none;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            padding: 4px 0;
+            transition: opacity 0.2s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 24px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 968px) {
+            .hero-wrapper {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content p {
+                margin: 0 auto 32px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-image .food-placeholder {
+                max-width: 280px;
+                font-size: 4rem;
+                margin: 0 auto;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #fff;
+                position: absolute;
+                top: 68px;
+                left: 0;
+                right: 0;
+                padding: 30px 24px;
+                gap: 20px;
+                border-radius: 0 0 28px 28px;
+                box-shadow: 0 24px 40px rgba(0, 0, 0, 0.04);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.6rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-box {
+                padding: 40px 20px;
+            }
+
+            .cta-box h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAV ========== -->
+    <nav id="navbar">
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">
+                <span class="logo-icon"><i class="fas fa-hamburger"></i></span>
+                <span class="logo-text">Grill<span>& Co.</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#testimonials">Reviews</a></li>
+                <li><a href="#cta" class="nav-cta">Order Now</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-wrapper">
+                <div class="hero-content">
+                    <div class="section-tag" style="background: rgba(231,76,60,0.1); color: #e74c3c; display: inline-block; margin-bottom: 16px;">
+                        <i class="fas fa-fire"></i> Since 2010
+                    </div>
+                    <h1>Best Burgers <br /><span class="highlight">in Town</span></h1>
+                    <p>Juicy, flame-grilled burgers made with 100% premium beef. Fresh ingredients, crafted with love – every single day.</p>
+                    <div class="hero-buttons">
+                        <a href="#cta" class="btn-primary">
+                            <i class="fas fa-shopping-bag"></i> Order Now
+                        </a>
+                        <a href="#menu" class="btn-outline">
+                            <i class="fas fa-utensils"></i> View Menu
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div>
+                            <div class="number">4.9 ⭐</div>
+                            <div class="label">1,200+ Reviews</div>
+                        </div>
+                        <div>
+                            <div class="number">15+</div>
+                            <div class="label">Awards</div>
+                        </div>
+                        <div>
+                            <div class="number">3,500+</div>
+                            <div class="label">Happy Customers</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="food-placeholder">
+                        <i class="fas fa-hamburger"></i>
+                        <span>🍟 Burger & Fries</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MENU ========== -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <span class="section-tag"><i class="fas fa-utensils"></i> Our Menu</span>
+            <h2 class="section-title">Fresh & Delicious</h2>
+            <p class="section-sub">Made with premium ingredients, prepared fresh daily.</p>
+
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="icon">🍔</div>
+                    <h3>Classic Burger</h3>
+                    <p>Beef patty, lettuce, tomato, cheese</p>
+                    <div class="price">$12.90</div>
+                </div>
+                <div class="menu-card">
+                    <div class="icon">🧀</div>
+                    <h3>Double Cheese</h3>
+                    <p>Two beef patties, double cheese, onions</p>
+                    <div class="price">$16.90</div>
+                </div>
+                <div class="menu-card">
+                    <div class="icon">🌶️</div>
+                    <h3>Spicy Chicken</h3>
+                    <p>Crispy chicken, spicy mayo, jalapeños</p>
+                    <div class="price">$14.90</div>
+                </div>
+                <div class="menu-card">
+                    <div class="icon">🥗</div>
+                    <h3>Veggie Deluxe</h3>
+                    <p>Plant-based patty, avocado, roasted veggies</p>
+                    <div class="price">$13.90</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <span class="section-tag"><i class="fas fa-star"></i> Reviews</span>
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-sub">Real reviews from real people who love our food.</p>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Best burger I've ever had! Juicy, fresh, and packed with flavor."</p>
+                    <div class="author">
+                        <div class="avatar">M</div>
+                        <div>
+                            <div class="name">Mike Johnson</div>
+                            <div class="role">Regular Customer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"The spicy chicken burger is incredible! Perfect balance of heat and flavor."</p>
+                    <div class="author">
+                        <div class="avatar">S</div>
+                        <div>
+                            <div class="name">Sarah Lee</div>
+                            <div class="role">Food Blogger</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"Finally a place that makes vegan burgers taste amazing! Will definitely order again."</p>
+                    <div class="author">
+                        <div class="avatar">A</div>
+                        <div>
+                            <div class="name">Alex Rivera</div>
+                            <div class="role">Vegan Foodie</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="cta" id="cta">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Hungry? Order Now! 🍔</h2>
+                <p>Fresh, delicious burgers delivered straight to your door.</p>
+                <a href="#" class="btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Order Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-text">Grill<span>& Co.</span></div>
+                    <p>Best burgers in town since 2010.</p>
+                </div>
+                <div class="footer-links">
+                    <div>
+                        <h4>Quick Links</h4>
+                        <a href="#menu">Menu</a>
+                        <a href="#testimonials">Reviews</a>
+                        <a href="#cta">Order</a>
+                    </div>
+                    <div>
+                        <h4>Location</h4>
+                        <a href="#">123 Main Street</a>
+                        <a href="#">New York, NY 10001</a>
+                        <a href="#">Open: 11am – 10pm</a>
+                    </div>
+                    <div>
+                        <h4>Contact</h4>
+                        <a href="#">(555) 123-4567</a>
+                        <a href="#">hello@grillandco.com</a>
+                        <a href="#">@grillandco</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Grill & Co. All rights reserved.</span>
+                <div>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========== Mobile Menu ==========
+        const toggleBtn = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        toggleBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            const icon = toggleBtn.querySelector('i');
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                toggleBtn.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+
+        // ========== Navbar Shadow ==========
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ========== Smooth Scroll ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        console.log('%c🍔 Grill & Co.', 'font-size: 24px; font-weight: bold; color: #e74c3c;');
+        console.log('%cSchriftart: Fredoka One (rund, freundlich)', 'font-size: 14px; color: #4a4a6a;');
+    </script>
+</body>
+</html>
