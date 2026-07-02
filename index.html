@@ -27,12 +27,49 @@
             background: #fdf6f0;
             color: #1a1a2e;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1140px;
             margin: 0 auto;
             padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ---------- ANIMATED BACKGROUND ---------- */
+        .bg-glow {
+            position: fixed;
+            top: -30%;
+            left: -20%;
+            width: 70%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: floatGlow 20s ease-in-out infinite alternate;
+        }
+
+        .bg-glow-2 {
+            position: fixed;
+            bottom: -30%;
+            right: -20%;
+            width: 60%;
+            height: 70%;
+            background: radial-gradient(circle, rgba(243, 156, 18, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: floatGlow 25s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(60px, -40px) scale(1.2);
+            }
         }
 
         /* ---------- NAV ---------- */
@@ -42,14 +79,15 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(14px);
             padding: 14px 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-            transition: box-shadow 0.3s;
+            transition: all 0.3s;
         }
 
         nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
         }
 
@@ -59,17 +97,39 @@
             align-items: center;
         }
 
-        /* ----- LOGO ----- */
+        /* ----- LOGO (mit Animation) ----- */
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
         }
 
         .logo-icon {
             font-size: 2rem;
             color: #e74c3c;
+            animation: bounceIcon 2s ease-in-out infinite;
+        }
+
+        @keyframes bounceIcon {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
         }
 
         .logo-text {
@@ -77,10 +137,17 @@
             font-size: 1.8rem;
             color: #e74c3c;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .logo-text span {
-            color: #f39c12;
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -106,7 +173,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
             transition: width 0.3s;
         }
 
@@ -119,13 +186,24 @@
         }
 
         .nav-cta {
-            background: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: #fff !important;
             padding: 10px 28px;
             border-radius: 60px;
             font-weight: 600;
             transition: all 0.3s;
             box-shadow: 0 4px 20px rgba(231, 76, 60, 0.2);
+            animation: ctaPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ctaPulse {
+            0%,
+            100% {
+                box-shadow: 0 4px 20px rgba(231, 76, 60, 0.2);
+            }
+            50% {
+                box-shadow: 0 8px 40px rgba(231, 76, 60, 0.4);
+            }
         }
 
         .nav-cta::after {
@@ -133,10 +211,9 @@
         }
 
         .nav-cta:hover {
-            background: #c0392b !important;
-            transform: scale(1.04);
+            transform: scale(1.06);
+            box-shadow: 0 8px 40px rgba(231, 76, 60, 0.4);
             color: #fff !important;
-            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.3);
         }
 
         .menu-toggle {
@@ -151,9 +228,19 @@
         /* ---------- HERO ---------- */
         .hero {
             padding: 140px 0 80px;
-            background: linear-gradient(145deg, #fdf6f0, #f8e8d8);
             position: relative;
             overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 60%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.04) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .hero-wrapper {
@@ -165,29 +252,57 @@
 
         .hero-content h1 {
             font-family: 'Fredoka One', cursive;
-            font-size: 4rem;
+            font-size: 4.2rem;
             line-height: 1.08;
             color: #1a1a2e;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-content h1 .highlight {
-            color: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c, #f39c12, #e74c3c);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
         }
 
         .hero-content p {
             font-size: 1.2rem;
             color: #4a4a6a;
             margin-bottom: 32px;
+            animation: fadeInUp 1.2s ease;
         }
 
         .hero-buttons {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
+            animation: fadeInUp 1.4s ease;
         }
 
         .btn-primary {
-            background: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: #fff;
             padding: 16px 44px;
             border-radius: 60px;
@@ -201,11 +316,28 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover {
-            background: #c0392b;
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 12px 40px rgba(231, 76, 60, 0.35);
         }
 
@@ -223,6 +355,7 @@
             background: transparent;
             cursor: pointer;
             font-size: 1rem;
+            position: relative;
         }
 
         .btn-outline:hover {
@@ -244,12 +377,45 @@
             font-size: 6rem;
             color: #fff;
             box-shadow: 0 30px 60px rgba(231, 76, 60, 0.2);
+            animation: floatImage 4s ease-in-out infinite;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        @keyframes floatImage {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-16px);
+            }
+        }
+
+        .hero-image .food-placeholder:hover {
+            transform: scale(1.03) translateY(-8px);
+            box-shadow: 0 40px 80px rgba(231, 76, 60, 0.3);
+        }
+
+        .hero-image .food-placeholder i {
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.1));
+            animation: burgerSpin 10s linear infinite;
+        }
+
+        @keyframes burgerSpin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .hero-image .food-placeholder span {
             font-size: 1.2rem;
             font-weight: 600;
             opacity: 0.8;
+            animation: fadeInUp 1.5s ease;
         }
 
         .hero-stats {
@@ -258,12 +424,17 @@
             margin-top: 40px;
             padding-top: 32px;
             border-top: 1px solid rgba(0, 0, 0, 0.04);
+            animation: fadeInUp 1.6s ease;
         }
 
         .hero-stats .number {
             font-size: 1.8rem;
             font-weight: 800;
             color: #1a1a2e;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-stats .label {
@@ -275,6 +446,17 @@
         .menu {
             padding: 80px 0;
             background: #fff;
+            position: relative;
+        }
+
+        .menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #e74c3c, #f39c12, transparent);
         }
 
         .section-tag {
@@ -287,6 +469,7 @@
             font-weight: 600;
             letter-spacing: 0.5px;
             margin-bottom: 12px;
+            border: 1px solid rgba(231, 76, 60, 0.08);
         }
 
         .section-title {
@@ -294,6 +477,10 @@
             font-weight: 800;
             letter-spacing: -0.02em;
             line-height: 1.15;
+            background: linear-gradient(135deg, #1a1a2e, #e74c3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .section-sub {
@@ -318,22 +505,51 @@
             transition: all 0.4s;
             border: 1px solid rgba(0, 0, 0, 0.02);
             cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.03), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .menu-card:hover::before {
+            opacity: 1;
         }
 
         .menu-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(231, 76, 60, 0.06);
             border-color: rgba(231, 76, 60, 0.08);
         }
 
         .menu-card .icon {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             margin-bottom: 12px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .menu-card:hover .icon {
+            transform: scale(1.1) rotate(-8deg);
         }
 
         .menu-card h3 {
             font-size: 1.3rem;
             margin-bottom: 4px;
+            transition: color 0.3s;
+        }
+
+        .menu-card:hover h3 {
+            color: #e74c3c;
         }
 
         .menu-card p {
@@ -346,12 +562,23 @@
             font-weight: 700;
             color: #e74c3c;
             margin-top: 12px;
+            display: inline-block;
+            padding: 4px 16px;
+            background: rgba(231, 76, 60, 0.06);
+            border-radius: 60px;
+            transition: all 0.3s;
+        }
+
+        .menu-card:hover .price {
+            background: rgba(231, 76, 60, 0.12);
+            transform: scale(1.05);
         }
 
         /* ---------- TESTIMONIALS ---------- */
         .testimonials {
             padding: 80px 0;
             background: #fdf6f0;
+            position: relative;
         }
 
         .testimonial-grid {
@@ -366,18 +593,31 @@
             padding: 32px 28px;
             border-radius: 28px;
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.02);
-            transition: transform 0.3s;
+            transition: all 0.3s;
             border: 1px solid rgba(0, 0, 0, 0.02);
         }
 
         .testimonial-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(231, 76, 60, 0.04);
+            border-color: rgba(231, 76, 60, 0.06);
         }
 
         .testimonial-card .stars {
             color: #f39c12;
             margin-bottom: 12px;
             font-size: 1.1rem;
+            animation: starPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes starPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
         }
 
         .testimonial-card p {
@@ -397,23 +637,18 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: #e74c3c;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
             font-size: 1.2rem;
+            transition: transform 0.3s;
         }
 
-        .testimonial-card .author .name {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .testimonial-card .author .role {
-            font-size: 0.8rem;
-            color: #4a4a6a;
+        .testimonial-card:hover .author .avatar {
+            transform: scale(1.1);
         }
 
         /* ---------- CTA ---------- */
@@ -427,11 +662,26 @@
             border-radius: 40px;
             padding: 60px 40px;
             color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -30%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.04), transparent 70%);
+            pointer-events: none;
         }
 
         .cta-box h2 {
             font-size: 2.8rem;
             font-weight: 800;
+            position: relative;
+            animation: fadeInUp 0.8s ease;
         }
 
         .cta-box p {
@@ -439,12 +689,14 @@
             opacity: 0.9;
             max-width: 500px;
             margin: 12px auto 32px;
+            position: relative;
         }
 
         .cta-box .btn-primary {
             background: #fff;
             color: #e74c3c;
             box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+            position: relative;
         }
 
         .cta-box .btn-primary:hover {
@@ -471,6 +723,10 @@
             font-size: 1.4rem;
             margin-bottom: 6px;
             display: inline-block;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .footer-brand p {
@@ -497,11 +753,13 @@
             opacity: 0.6;
             font-size: 0.9rem;
             padding: 4px 0;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
         }
 
         .footer-links a:hover {
             opacity: 1;
+            color: #e74c3c;
+            transform: translateX(4px);
         }
 
         .footer-bottom {
@@ -633,6 +891,10 @@
     </style>
 </head>
 <body>
+
+    <!-- ========== ANIMATED BACKGROUND ========== -->
+    <div class="bg-glow"></div>
+    <div class="bg-glow-2"></div>
 
     <!-- ========== NAV ========== -->
     <nav id="navbar">
@@ -871,8 +1133,26 @@
             });
         });
 
-        console.log('%c🍔 Grill & Co.', 'font-size: 24px; font-weight: bold; color: #e74c3c;');
-        console.log('%cSchriftart: Fredoka One (rund, freundlich)', 'font-size: 14px; color: #4a4a6a;');
+        // ========== Intersection Observer für Scroll-Animationen ==========
+        const cards = document.querySelectorAll('.menu-card, .testimonial-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        console.log('%c🍔 Grill & Co. Premium', 'font-size: 24px; font-weight: bold; color: #e74c3c;');
+        console.log('%cMit Animationen, Gradienten & Glow-Effekten', 'font-size: 14px; color: #4a4a6a;');
     </script>
 </body>
 </html>
